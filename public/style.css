@@ -1,0 +1,10 @@
+body{
+    background-color: rgb(7, 7, 7);
+    color: #acaaaa;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin:  auto;
+    text-align: center;
+    font-family: "Poppins", serif;
+}

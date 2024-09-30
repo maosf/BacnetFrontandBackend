@@ -1,0 +1,36 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Client</title>
+</head>
+<body>
+  <h1>WebSocket Client</h1>
+  <ul id="data-list"></ul>
+
+  <script src="https://cdn.socket.io/4.3.1/socket.io.min.js"></script>
+  <script>
+    const socket = io('http://localhost:3000'); // Replace with your server's URL
+
+    socket.on('connect', () => {
+      console.log('Connected to server');
+    });
+
+    socket.on('data', (data) => {
+      console.log('Received data:', data);
+
+      const dataList = document.getElementById('data-list');
+      const listItem = document.createElement('li');
+      listItem.textContent = JSON.stringify(data);
+      dataList.appendChild(listItem);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from server');
+    });
+  </script>
+</body>
+</html>

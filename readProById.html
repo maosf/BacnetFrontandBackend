@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node.js API Example</title>
+  <style>
+    .container{
+      font-family: Arial, Helvetica, sans-serif;
+      color: white;
+      background-color: black;
+      width: 80%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+    }
+    h2{
+      margin-top: 50px;
+    }
+    #data-container{
+      width: 250px;
+      background-color: rgb(20, 48, 20);
+      border: solid 1px;
+      border-color: rgb(245, 228, 220);
+      border-radius: 5px;
+      padding: 10px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body class="container">
+  <h2>Node.js API Example</h2>
+
+  <div id="data-container">
+    
+  </div>
+
+  <script>
+    // Function to fetch data from the API
+    let id=30;
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api?type=2&instance=${id}&property=85`); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
+      }
+    };
+
+    // Function to render data on the page
+    const renderData = (data) => {
+      const el=document.createElement('p');
+      const dataContainer = document.getElementById('data-container');
+      dataContainer.appendChild(el);
+      if (data) {
+       // dataContainer.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        //const objdata=JSON.parse(data);
+        el.innerHTML = `<h3> room ${data.value} the temp is: ${data.value} C</h3>`;
+        
+      } else {
+        dataContainer.innerHTML = '<p>Failed to fetch data</p>';
+      }
+    };
+
+    // Fetch data and render it when the page loads
+    window.onload = async () => {
+      id=30;
+      const data30 = await fetchData();
+      renderData(data30);
+      
+      id=31;
+      const data31 = await fetchData();
+      renderData(data31);
+      id=32;
+      const data32 = await fetchData();
+      renderData(data32);
+      id=33;
+      const data33 = await fetchData();
+      renderData(data33);
+      id=34;
+      const data34 = await fetchData();
+      renderData(data34);
+    };
+  </script>
+</body>
+</html>
