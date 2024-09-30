@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BACnet Sensor Data</title>
+    <style>
+        .container{
+            width: 80%;
+            background: black;
+            color:white; 
+            font-family: Arial, Helvetica, sans-serif; 
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            margin: auto;
+        }
+        ul{
+            color:rgb(252, 80, 180); 
+            list-style: none;
+        }
+    </style>
+</head>
+<body class='container'>
+    <h1>BACnet Sensor Data</h1>
+    <ul  id="sensorList" >
+        <!-- Sensor data will be inserted here dynamically -->
+    </ul>
+
+    <script>
+        // Retrieve sensor data from server response
+        const sensorData = {SENSOR_DATA};
+
+        // Populate sensor data in the HTML
+        const sensorList = document.getElementById('sensorList');
+        Object.keys(sensorData).forEach(objectId => {
+            const listItem = document.createElement('li');
+            listItem.style.padding="10px";
+            (sensorData[objectId]>31)? (listItem.style.color="rgb(252.80.180)"):(listItem.style.color="steelblue");
+            listItem.textContent = `Sensor ${objectId} temp is:    ${sensorData[objectId]} C`;
+            sensorList.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>

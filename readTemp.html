@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BACnet Property Reader</title>
+</head>
+<body>
+  <h1>BACnet Property Reader</h1>
+  <div id="propertyValue"></div>
+
+  <script>
+    // BACnet device address (IP and port)
+    const deviceAddress = '192.168.10.30'; // Replace with your device's IP address
+    const deviceId = 14; // Replace with your device's ID
+
+    // BACnet object type and instance
+    const objectType = 2; // Analog Input
+    const objectInstance = 30; // Instance ID of the Analog Input object
+
+    // BACnet property identifier for Present Value
+    const propertyId = 85; // Present Value
+
+    // Function to read BACnet property
+    async function readBACnetProperty() {
+      try {
+        const response = await fetch(`http://localhost:3000/read-property`);//?type=${objectType}&instance=${objectInstance}&property=${propertyId}`);
+        if (!response.ok) {
+          throw new Error('Failed to read property');
+        }
+        const data = await response.json();
+        document.getElementById('propertyValue').innerText = `Property Value: ${data.value}`;
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('propertyValue').innerText = 'Error reading property';
+      }
+    }
+
+    // Read BACnet property on page load
+    readBACnetProperty();
+  </script>
+</body>
+</html>
